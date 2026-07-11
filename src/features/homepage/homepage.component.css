@@ -72,3 +72,19 @@ a {
   margin-block: auto;
 }
 
+
+
+@media (max-width: 736px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+
+  .big-qr {
+    display: none;
+  }
+
+  .h1 {
+    font-size: 2rem;
+  }
+}
+
