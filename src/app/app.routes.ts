@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import {HomepageComponent} from '../features/homepage/homepage.component';
-import {FormspageComponent} from '../features/formspage/formspage.component';
+import {FormsPageComponent} from '../features/formspage/forms-page.component';
 
 export const routes: Routes = [
   {
@@ -10,7 +10,7 @@ export const routes: Routes = [
   },
   {
     path: 'forms',
-    component: FormspageComponent,
+    component: FormsPageComponent,
     title: 'Forms'
   },
   {
