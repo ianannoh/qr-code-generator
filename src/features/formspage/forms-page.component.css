@@ -1,0 +1,300 @@
+section {
+  background: #f5f8fb;
+}
+
+h2 {
+  margin-top: 4rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-group {
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    background: rgb(20 160 238 / 0.05);
+  }
+}
+
+.main-img {
+  height: 2rem;
+  width: 2rem;
+}
+
+.right-arrow {
+  margin-left: auto;
+  height: 2rem;
+  width: 2rem;
+  transform: rotate(0);
+  transition: transform 0.5s;
+}
+
+.content {
+  background: white;
+  box-sizing: border-box;
+  border-radius: 10px;
+  visibility: hidden;
+  transform: translateY(-5rem);
+  opacity: 0;
+  transition: 0.2s;
+  height: 0;
+}
+
+.content.color-box {
+  background: #f5f8fb;
+}
+
+.form-group.show {
+  .content {
+    height: auto;
+    padding: 1rem;
+    visibility: visible;
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .right-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+.color-palette {
+  display: flex;
+  gap: 0.5rem;
+  background: white;
+  padding: 0.1rem;
+  width: max-content;
+  margin-bottom: 1rem;
+
+  div {
+    height: 2.5rem;
+    width: 5rem;
+    border: 1px solid #f5f8fb;
+    border-radius: 5px;
+  }
+}
+
+.color-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  row-gap: 0.5rem;
+
+  div {
+    display: flex;
+    border: 1px solid #96949c;
+    border-radius: 5px;
+    padding: 0.1rem;
+    width: 70%;
+  }
+
+  p, input[type=color] {
+    height: 2.5rem;
+  }
+
+  input[type=color] {
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover {
+      border: 1px solid #96949c;
+    }
+  }
+
+  p {
+    width: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.img-box {
+  height: 5rem;
+  width: 5rem;
+  position: relative;
+  border: 1px dashed var(--primary-color);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.5s;
+
+  label {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+
+  &:hover {
+    border: 1px dashed var(--primary-color-hover);
+  }
+}
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  input {
+    border: 1px solid #96949c;
+    border-radius: 5px;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+
+    &:focus {
+      border: 1px solid var(--primary-color);
+    }
+  }
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-details {
+  border: 1px solid rgb(150 148 156 / 0.2);
+  background-color: #fafafa;
+  padding: 2rem;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  border: 1px solid rgb(150 148 156 / 0.2);
+  background-color: #fafafa;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+  img {
+    height: 2rem;
+    width: 2rem;
+    transform: scale(1.0);
+    transition: transform 0.5s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-top: 1rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 40%;
+  }
+
+  label {
+    font-size: 0.8rem;
+  }
+
+  input {
+    border: 1px solid rgb(150 148 156 / 0.2);
+    border-radius: 5px;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    width: 100%;
+
+    &:focus {
+      border: 1px solid var(--primary-color);
+    }
+  }
+
+  img {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transform: scale(1.0);
+    transition: transform 0.5s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .form-group.show {
+    .content {
+      padding: 0.5rem;
+    }
+  }
+
+  .info {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .contact-details {
+    padding: 1rem;
+  }
+
+  .head {
+    padding: 1rem;
+  }
+
+  .container {
+    flex-direction: column;
+
+    div {
+      width: 100%;
+    }
+
+    img {
+      margin-right: 0.5rem;
+    }
+  }
+}
+

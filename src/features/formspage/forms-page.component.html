@@ -1,0 +1,216 @@
+<section>
+
+  <form class="main-content">
+    <h2>Add content</h2>
+
+    <div class="form-group" [class.show]="selectedCardId === '1'">
+      <div class="heading" (click)="setSelectedCardId('1')">
+        <img class="main-img" src="/forms/design.svg" alt="design icon">
+
+        <div>
+          <h4>Design</h4>
+          <p>Choose a color theme for your page</p>
+        </div>
+
+        <img class="right-arrow" src="/forms/right-arrow.svg" alt="right arrow image">
+      </div>
+
+      <div class="content color-box">
+        <p>Color Palette</p>
+
+        <div class="color-palette">
+          <div [style.background]="primaryColor"></div>
+          <div [style.background]="secondaryColor"></div>
+        </div>
+
+        <div class="color-inputs">
+
+          <label>Primary Color</label>
+          <label>Secondary Color</label>
+
+          <div>
+            <input type="color" name="primaryColor" [(ngModel)]="primaryColor" id="primaryColor">
+
+            <p>{{ primaryColor }}</p>
+          </div>
+
+          <div>
+            <input type="color" name="secondaryColor" [(ngModel)]="secondaryColor" id="secondaryColor">
+
+            <p>{{ secondaryColor }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" [class.show]="selectedCardId === '2'">
+      <div class="heading" (click)="setSelectedCardId('2')">
+        <img class="main-img" src="/forms/personal-account.svg" alt="personal info icon">
+
+        <div>
+          <h4>Personal Information</h4>
+          <p>Fill in your information.</p>
+        </div>
+
+        <img class="right-arrow" src="/forms/right-arrow.svg" alt="right arrow image">
+      </div>
+
+      <div class="content">
+        <div class="img-box">
+          <label for="upload-image">
+            <img src="/forms/image-upload.png" alt="upload image">
+          </label>
+          <input type="file" name="profile-pic" id="upload-image" hidden>
+        </div>
+
+        <div class="info">
+          <div>
+            <label for="firstName">Name</label>
+            <input type="text" name="firstName" id="firstName" placeholder="Eg. Kwesi">
+          </div>
+
+          <div>
+            <label for="lastName">Surname</label>
+            <input type="text" name="lastName" id="lastName" placeholder="Eg. Annoh">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-group" [class.show]="selectedCardId === '3'">
+      <div class="heading" (click)="setSelectedCardId('3')">
+        <img class="main-img" src="/forms/contact-phonebook.svg" alt="contact details icon">
+
+        <div>
+          <h4>Contact Details</h4>
+          <p>Provide the contact information you want displayed on your vCard.</p>
+        </div>
+
+        <img class="right-arrow" src="/forms/right-arrow.svg" alt="right arrow image">
+
+
+      </div>
+
+      <div class="content contacts">
+        <div class="contact-details">
+          <div class="head">
+            <h5>Add Phone</h5>
+
+            <img (click)="addContact(phoneContacts)" src="/forms/plus-square.svg" alt="plus icon">
+          </div>
+
+          <div class="input-container">
+            @for (p of phoneContacts; track p.id) {
+              <div class="container">
+                <div>
+                  <label [for]="'phone_label_' + p.id">Label (optional)</label>
+                  <input type="text" [name]="'phone_label_' + p.id" [id]="'phone_label_' + p.id"
+                         placeholder="E.g. Work Phone">
+                </div>
+
+                <div>
+                  <label [for]="'phone_' + p.id">Phone Number</label>
+                  <input type="text" [name]="'phone_' + p.id" [id]="'phone_' + p.id" placeholder="E.g. 054...">
+                </div>
+
+                <img (click)="deleteContact(phoneContacts, p.id)" src="/forms/delete-icon.svg" alt="delete icon">
+
+              </div>
+            }
+          </div>
+
+        </div>
+
+        <div class="contact-details">
+          <div class="head">
+            <h5>Add Email</h5>
+
+            <img (click)="addContact(emailContacts)" src="/forms/plus-square.svg" alt="plus icon">
+          </div>
+
+          <div class="input-container">
+            @for (p of emailContacts; track p.id) {
+              <div class="container">
+
+              <div>
+                <label [for]="'email_label' + p.id">Label (optional)</label>
+                <input type="text" [name]="'email_label' + p.id" [id]="'email_label' + p.id"
+                       placeholder="E.g. My Personal Email">
+              </div>
+
+              <div>
+                <label [for]="'email_' + p.id">Email</label>
+                <input type="email" [name]="'email_' + p.id" [id]="'email_' + p.id" placeholder="E.g. qr@gmail.com">
+              </div>
+
+              <img (click)="deleteContact(emailContacts, p.id)" src="/forms/delete-icon.svg" alt="delete icon">
+
+              </div>
+            }
+          </div>
+
+        </div>
+
+        <div class="contact-details">
+          <div class="head">
+            <h5>Add Website</h5>
+
+            <img (click)="addContact(websites)" src="/forms/plus-square.svg" alt="plus icon">
+          </div>
+
+          <div class="input-container">
+
+            @for (p of websites; track p.id) {
+              <div class="container">
+
+              <div>
+                <label [for]="'website_label_' + p.id">Label (optional)</label>
+                <input type="text" [name]="'website_label_' + p.id" [id]="'website_label_' + p.id"
+                       placeholder="E.g. Work Phone">
+              </div>
+
+              <div>
+                <label [for]="'website_' + p.id">Website</label>
+                <input type="url" [name]="'website_' + p.id" [id]="'website_' + p.id" placeholder="E.g. https://...">
+              </div>
+
+              <img (click)="deleteContact(websites, p.id)" src="/forms/delete-icon.svg" alt="delete icon">
+
+              </div>
+            }
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" [class.show]="selectedCardId === '4'">
+      <div class="heading" (click)="setSelectedCardId('4')">
+        <img class="main-img" src="/forms/location.svg" alt="location icon">
+
+        <div>
+          <h4>Location</h4>
+          <p>Provide your address and location.</p>
+        </div>
+
+        <img class="right-arrow" src="/forms/right-arrow.svg" alt="right arrow image">
+      </div>
+    </div>
+
+    <div class="form-group" [class.show]="selectedCardId === '5'">
+      <div class="heading" (click)="setSelectedCardId('5')">
+        <img class="main-img" src="/forms/company.svg" alt="company icon">
+
+        <div>
+          <h4>Company Details</h4>
+          <p>Add more information about the business you are part of.</p>
+        </div>
+
+        <img class="right-arrow" src="/forms/right-arrow.svg" alt="right arrow image">
+      </div>
+    </div>
+
+  </form>
+
+</section>
