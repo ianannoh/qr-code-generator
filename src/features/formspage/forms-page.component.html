@@ -196,6 +196,38 @@
 
         <img class="right-arrow" src="/forms/right-arrow.svg" alt="right arrow image">
       </div>
+
+      <div class="content location">
+        <div>
+          <label for="street">Street</label>
+          <input placeholder="E.g. Oxford St." type="text" name="street" id="street">
+        </div>
+
+        <div>
+          <label for="street-number">Street Number</label>
+          <input placeholder="E.g. 12" type="text" name="street-number" id="street-number">
+        </div>
+
+        <div>
+          <label for="postal-code">Postal Code</label>
+          <input placeholder="E.g. P.O Box MP 123 " type="text" name="postal-code" id="postal-code">
+        </div>
+
+        <div>
+          <label for="city">City</label>
+          <input placeholder="E.g. Accra" type="text" name="city" id="city">
+        </div>
+
+        <div>
+          <label for="region">Region/State</label>
+          <input placeholder="E.g. Greater Accra" type="text" name="region" id="region">
+        </div>
+
+        <div>
+          <label for="country">Country</label>
+          <input placeholder="E.g. Ghana" type="text" name="country" id="country">
+        </div>
+      </div>
     </div>
 
     <div class="form-group" [class.show]="selectedCardId === '5'">
@@ -208,6 +240,23 @@
         </div>
 
         <img class="right-arrow" src="/forms/right-arrow.svg" alt="right arrow image">
+      </div>
+
+      <div class="content location">
+        <div>
+          <label for="company">Company</label>
+          <input placeholder="E.g. Philip & Bros. Ltd" type="text" name="company" id="company">
+        </div>
+
+        <div>
+          <label for="profession">Profession</label>
+          <input placeholder="E.g. Photographer" type="text" name="profession" id="profession">
+        </div>
+
+        <div class="summary">
+          <label for="company-summary">Summary</label>
+          <textarea placeholder="As a photographer, I aim to ..." name="company-summary" id="company-summary" cols="30" rows="10"></textarea>
+        </div>
       </div>
     </div>
 
