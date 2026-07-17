@@ -1,6 +1,6 @@
 <section>
 
-  <form class="main-content">
+  <form class="main-content" [formGroup]="qrCodeForm" (ngSubmit)="submitDetails(qrCodeForm)">
     <h2>Add content</h2>
 
     <div class="form-group" [class.show]="selectedCardId === '1'">
@@ -19,8 +19,8 @@
         <p>Color Palette</p>
 
         <div class="color-palette">
-          <div [style.background]="primaryColor"></div>
-          <div [style.background]="secondaryColor"></div>
+          <div [style.background]="qrCodeForm.get('primaryColor')?.value"></div>
+          <div [style.background]="qrCodeForm.get('secondaryColor')?.value"></div>
         </div>
 
         <div class="color-inputs">
@@ -29,15 +29,15 @@
           <label>Secondary Color</label>
 
           <div>
-            <input type="color" name="primaryColor" [(ngModel)]="primaryColor" id="primaryColor">
+            <input type="color" formControlName="primaryColor"  id="primaryColor">
 
-            <p>{{ primaryColor }}</p>
+            <p>{{ qrCodeForm.get('primaryColor')?.value }}</p>
           </div>
 
           <div>
-            <input type="color" name="secondaryColor" [(ngModel)]="secondaryColor" id="secondaryColor">
+            <input type="color" formControlName="secondaryColor" id="secondaryColor">
 
-            <p>{{ secondaryColor }}</p>
+            <p>{{ qrCodeForm.get('secondaryColor')?.value }}</p>
           </div>
         </div>
       </div>
@@ -58,20 +58,20 @@
       <div class="content">
         <div class="img-box">
           <label for="upload-image">
-            <img src="/forms/image-upload.png" alt="upload image">
+            <img [src]="imagePreview ?? '/forms/image-upload.png'" alt="upload image">
           </label>
-          <input type="file" name="profile-pic" id="upload-image" hidden>
+          <input (change)="onFileSelected($event)" type="file" accept="image/*" id="upload-image" hidden>
         </div>
 
         <div class="info">
           <div>
             <label for="firstName">Name</label>
-            <input type="text" name="firstName" id="firstName" placeholder="Eg. Kwesi">
+            <input type="text" formControlName="firstName" id="firstName" placeholder="Eg. Kwesi">
           </div>
 
           <div>
             <label for="lastName">Surname</label>
-            <input type="text" name="lastName" id="lastName" placeholder="Eg. Annoh">
+            <input type="text" formControlName="lastName" id="lastName" placeholder="Eg. Annoh">
           </div>
         </div>
 
@@ -105,8 +105,7 @@
               <div class="container">
                 <div>
                   <label [for]="'phone_label_' + p.id">Label (optional)</label>
-                  <input type="text" [name]="'phone_label_' + p.id" [id]="'phone_label_' + p.id"
-                         placeholder="E.g. Work Phone">
+                  <input type="text" [name]="'phone_label_' + p.id" [id]="'phone_label_' + p.id" placeholder="E.g. Work Phone">
                 </div>
 
                 <div>
@@ -259,6 +258,14 @@
         </div>
       </div>
     </div>
+
+    <button>
+      @if (isSubmitting) {
+        <app-circular-progress-indicator-component></app-circular-progress-indicator-component>
+      } @else {
+        Submit
+      }
+    </button>
 
   </form>
 
