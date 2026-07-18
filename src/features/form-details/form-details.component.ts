@@ -1,7 +1,27 @@
 import {Component, OnInit} from '@angular/core';
 import {EncryptionService} from '../../core/encryption.service';
 import {ActivatedRoute} from '@angular/router';
+import {Validators} from '@angular/forms';
 
+interface IData {
+  primaryColor: string;
+  secondaryColor: string;
+  profilePic: string;
+  firstName: string;
+  lastName: string;
+  phones: string;
+  emails: string;
+  websites: string;
+  street: string;
+  streetNumber: string;
+  postalCode: string;
+  city: string;
+  region: string;
+  country: string;
+  company: string;
+  profession: string;
+  companySummary: string;
+}
 @Component({
   selector: 'app-form-details',
   imports: [],
@@ -24,12 +44,12 @@ export class FormDetailsComponent implements OnInit {
       if(!token) return;
 
 
-      const data = this.encryption.decrypt<any>(token);
+      this.data = this.encryption.decrypt<any>(token);
 
-
-      console.log(data);
 
     });
 
   }
+
+  protected data!: IData;
 }

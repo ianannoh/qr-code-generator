@@ -71,8 +71,6 @@ export class FormsPageComponent {
     this.qrCodeForm.patchValue({ profilePic: url });
     this.qrCodeForm.get('profilePic')?.markAsDirty();
     this.qrCodeForm.get('profilePic')?.updateValueAndValidity();
-
-    console.log(this.qrCodeForm.value)
   }
 
 
