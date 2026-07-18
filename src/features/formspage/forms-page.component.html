@@ -1,6 +1,6 @@
 <section>
 
-  <form class="main-content">
+  <form class="main-content" [formGroup]="qrCodeForm" (ngSubmit)="submitDetails(qrCodeForm)">
     <h2>Add content</h2>
 
     <div class="form-group" [class.show]="selectedCardId === '1'">
@@ -19,8 +19,8 @@
         <p>Color Palette</p>
 
         <div class="color-palette">
-          <div [style.background]="primaryColor"></div>
-          <div [style.background]="secondaryColor"></div>
+          <div [style.background]="qrCodeForm.get('primaryColor')?.value"></div>
+          <div [style.background]="qrCodeForm.get('secondaryColor')?.value"></div>
         </div>
 
         <div class="color-inputs">
@@ -29,15 +29,15 @@
           <label>Secondary Color</label>
 
           <div>
-            <input type="color" name="primaryColor" [(ngModel)]="primaryColor" id="primaryColor">
+            <input type="color" formControlName="primaryColor" id="primaryColor">
 
-            <p>{{ primaryColor }}</p>
+            <p>{{ qrCodeForm.get('primaryColor')?.value }}</p>
           </div>
 
           <div>
-            <input type="color" name="secondaryColor" [(ngModel)]="secondaryColor" id="secondaryColor">
+            <input type="color" formControlName="secondaryColor" id="secondaryColor">
 
-            <p>{{ secondaryColor }}</p>
+            <p>{{ qrCodeForm.get('secondaryColor')?.value }}</p>
           </div>
         </div>
       </div>
@@ -58,20 +58,20 @@
       <div class="content">
         <div class="img-box">
           <label for="upload-image">
-            <img src="/forms/image-upload.png" alt="upload image">
+            <img [src]="imagePreview ?? '/forms/image-upload.png'" alt="upload image">
           </label>
-          <input type="file" name="profile-pic" id="upload-image" hidden>
+          <input (change)="onFileSelected($event)" type="file" accept="image/*" id="upload-image" hidden>
         </div>
 
         <div class="info">
           <div>
             <label for="firstName">Name</label>
-            <input type="text" name="firstName" id="firstName" placeholder="Eg. Kwesi">
+            <input type="text" formControlName="firstName" id="firstName" placeholder="Eg. Kwesi">
           </div>
 
           <div>
             <label for="lastName">Surname</label>
-            <input type="text" name="lastName" id="lastName" placeholder="Eg. Annoh">
+            <input type="text" formControlName="lastName" id="lastName" placeholder="Eg. Annoh">
           </div>
         </div>
 
@@ -97,27 +97,35 @@
           <div class="head">
             <h5>Add Phone</h5>
 
-            <img (click)="addContact(phoneContacts)" src="/forms/plus-square.svg" alt="plus icon">
+            <img (click)="addContact(phones)" src="/forms/plus-square.svg" alt="plus icon">
           </div>
 
           <div class="input-container">
-            @for (p of phoneContacts; track p.id) {
-              <div class="container">
-                <div>
-                  <label [for]="'phone_label_' + p.id">Label (optional)</label>
-                  <input type="text" [name]="'phone_label_' + p.id" [id]="'phone_label_' + p.id"
-                         placeholder="E.g. Work Phone">
+            <div formArrayName="phones">
+
+              @for (phone of phones.controls; track $index; let i = $index) {
+
+                <div class="container" [formGroupName]="i">
+
+                  <div>
+                    <label>Label</label>
+
+                    <input type="text" formControlName="label" placeholder="E.g. Work Phone">
+                  </div>
+
+                  <div>
+                    <label>Phone Number</label>
+
+                    <input type="text" formControlName="data" placeholder="E.g. 054...">
+                  </div>
+
+                  <img src="/forms/delete-icon.svg" (click)="deleteContact(phones, i)" alt="delete">
+
                 </div>
 
-                <div>
-                  <label [for]="'phone_' + p.id">Phone Number</label>
-                  <input type="text" [name]="'phone_' + p.id" [id]="'phone_' + p.id" placeholder="E.g. 054...">
-                </div>
+              }
 
-                <img (click)="deleteContact(phoneContacts, p.id)" src="/forms/delete-icon.svg" alt="delete icon">
-
-              </div>
-            }
+            </div>
           </div>
 
         </div>
@@ -126,28 +134,35 @@
           <div class="head">
             <h5>Add Email</h5>
 
-            <img (click)="addContact(emailContacts)" src="/forms/plus-square.svg" alt="plus icon">
+            <img (click)="addContact(emails)" src="/forms/plus-square.svg" alt="plus icon">
           </div>
 
           <div class="input-container">
-            @for (p of emailContacts; track p.id) {
-              <div class="container">
+            <div formArrayName="emails">
 
-              <div>
-                <label [for]="'email_label' + p.id">Label (optional)</label>
-                <input type="text" [name]="'email_label' + p.id" [id]="'email_label' + p.id"
-                       placeholder="E.g. My Personal Email">
-              </div>
+              @for (e of emails.controls; track $index; let i = $index) {
 
-              <div>
-                <label [for]="'email_' + p.id">Email</label>
-                <input type="email" [name]="'email_' + p.id" [id]="'email_' + p.id" placeholder="E.g. qr@gmail.com">
-              </div>
+                <div class="container" [formGroupName]="i">
 
-              <img (click)="deleteContact(emailContacts, p.id)" src="/forms/delete-icon.svg" alt="delete icon">
+                  <div>
+                    <label>Label</label>
 
-              </div>
-            }
+                    <input type="text" formControlName="label" placeholder="E.g. My Personal Email">
+                  </div>
+
+                  <div>
+                    <label>Email</label>
+
+                    <input type="email" formControlName="data" placeholder="E.g. qr@gmail.com">
+                  </div>
+
+                  <img src="/forms/delete-icon.svg" (click)="deleteContact(emails, i)" alt="delete">
+
+                </div>
+
+              }
+
+            </div>
           </div>
 
         </div>
@@ -161,24 +176,31 @@
 
           <div class="input-container">
 
-            @for (p of websites; track p.id) {
-              <div class="container">
+            <div formArrayName="websites">
 
-              <div>
-                <label [for]="'website_label_' + p.id">Label (optional)</label>
-                <input type="text" [name]="'website_label_' + p.id" [id]="'website_label_' + p.id"
-                       placeholder="E.g. Work Phone">
-              </div>
+              @for (w of websites.controls; track $index; let i = $index) {
 
-              <div>
-                <label [for]="'website_' + p.id">Website</label>
-                <input type="url" [name]="'website_' + p.id" [id]="'website_' + p.id" placeholder="E.g. https://...">
-              </div>
+                <div class="container" [formGroupName]="i">
 
-              <img (click)="deleteContact(websites, p.id)" src="/forms/delete-icon.svg" alt="delete icon">
+                  <div>
+                    <label>Label</label>
 
-              </div>
-            }
+                    <input type="text" formControlName="label" placeholder="E.g. Portfolio">
+                  </div>
+
+                  <div>
+                    <label>Website</label>
+
+                    <input type="text" formControlName="data" placeholder="E.g. https://...">
+                  </div>
+
+                  <img src="/forms/delete-icon.svg" (click)="deleteContact(websites, i)" alt="delete">
+
+                </div>
+
+              }
+
+            </div>
           </div>
 
         </div>
@@ -196,6 +218,38 @@
 
         <img class="right-arrow" src="/forms/right-arrow.svg" alt="right arrow image">
       </div>
+
+      <div class="content location">
+        <div>
+          <label for="street">Street</label>
+          <input placeholder="E.g. Oxford St." type="text" formControlName="street" id="street">
+        </div>
+
+        <div>
+          <label for="street-number">Street Number</label>
+          <input placeholder="E.g. 12" type="text" formControlName="streetNumber" id="street-number">
+        </div>
+
+        <div>
+          <label for="postal-code">Postal Code</label>
+          <input placeholder="E.g. P.O Box MP 123 " type="text" formControlName="postalCode" id="postal-code">
+        </div>
+
+        <div>
+          <label for="city">City</label>
+          <input placeholder="E.g. Accra" type="text" formControlName="city" id="city">
+        </div>
+
+        <div>
+          <label for="region">Region/State</label>
+          <input placeholder="E.g. Greater Accra" type="text" formControlName="region" id="region">
+        </div>
+
+        <div>
+          <label for="country">Country</label>
+          <input placeholder="E.g. Ghana" type="text" formControlName="country" id="country">
+        </div>
+      </div>
     </div>
 
     <div class="form-group" [class.show]="selectedCardId === '5'">
@@ -209,7 +263,33 @@
 
         <img class="right-arrow" src="/forms/right-arrow.svg" alt="right arrow image">
       </div>
+
+      <div class="content location">
+        <div>
+          <label for="company">Company</label>
+          <input placeholder="E.g. Philip & Bros. Ltd" type="text" formControlName="company" id="company">
+        </div>
+
+        <div>
+          <label for="profession">Profession</label>
+          <input placeholder="E.g. Photographer" type="text" formControlName="profession" id="profession">
+        </div>
+
+        <div class="summary">
+          <label for="company-summary">Summary</label>
+          <textarea placeholder="As a photographer, I aim to ..." formControlName="companySummary" id="company-summary" cols="30"
+                    rows="10"></textarea>
+        </div>
+      </div>
     </div>
+
+    <button [disabled]="qrCodeForm.invalid">
+      @if (isSubmitting) {
+        <app-circular-progress-indicator-component></app-circular-progress-indicator-component>
+      } @else {
+        Submit
+      }
+    </button>
 
   </form>
 

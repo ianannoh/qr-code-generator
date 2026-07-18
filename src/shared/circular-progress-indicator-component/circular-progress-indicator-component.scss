@@ -1,0 +1,16 @@
+div {
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: transparent;
+  border-radius: 50%;
+  margin: auto;
+  border: 3px solid white;
+  border-top: 3px solid var(--secondary-color);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
