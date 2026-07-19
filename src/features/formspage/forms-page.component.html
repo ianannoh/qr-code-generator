@@ -9,7 +9,7 @@
 
         <div>
           <h4>Design</h4>
-          <p>Choose a color theme for your page</p>
+          <p>Choose a color theme for your page (required)</p>
         </div>
 
         <img class="right-arrow" src="/forms/right-arrow.svg" alt="right arrow image">
@@ -65,12 +65,12 @@
 
         <div class="info">
           <div>
-            <label for="firstName">Name</label>
+            <label for="firstName">Name (required)</label>
             <input type="text" formControlName="firstName" id="firstName" placeholder="Eg. Kwesi">
           </div>
 
           <div>
-            <label for="lastName">Surname</label>
+            <label for="lastName">Surname (required)</label>
             <input type="text" formControlName="lastName" id="lastName" placeholder="Eg. Annoh">
           </div>
         </div>
@@ -88,14 +88,12 @@
         </div>
 
         <img class="right-arrow" src="/forms/right-arrow.svg" alt="right arrow image">
-
-
       </div>
 
       <div class="content contacts">
         <div class="contact-details">
           <div class="head">
-            <h5>Add Phone</h5>
+            <h5>Add Phone (required)</h5>
 
             <img (click)="addContact(phones)" src="/forms/plus-square.svg" alt="plus icon">
           </div>
@@ -108,13 +106,13 @@
                 <div class="container" [formGroupName]="i">
 
                   <div>
-                    <label>Label</label>
+                    <label>Label (required)</label>
 
                     <input type="text" formControlName="label" placeholder="E.g. Work Phone">
                   </div>
 
                   <div>
-                    <label>Phone Number</label>
+                    <label>Phone Number (required)</label>
 
                     <input type="text" formControlName="data" placeholder="E.g. 054...">
                   </div>
@@ -132,7 +130,7 @@
 
         <div class="contact-details">
           <div class="head">
-            <h5>Add Email</h5>
+            <h5>Add Email (required)</h5>
 
             <img (click)="addContact(emails)" src="/forms/plus-square.svg" alt="plus icon">
           </div>
@@ -236,17 +234,17 @@
         </div>
 
         <div>
-          <label for="city">City</label>
+          <label for="city">City (required)</label>
           <input placeholder="E.g. Accra" type="text" formControlName="city" id="city">
         </div>
 
         <div>
-          <label for="region">Region/State</label>
+          <label for="region">Region/State (required)</label>
           <input placeholder="E.g. Greater Accra" type="text" formControlName="region" id="region">
         </div>
 
         <div>
-          <label for="country">Country</label>
+          <label for="country">Country (required)</label>
           <input placeholder="E.g. Ghana" type="text" formControlName="country" id="country">
         </div>
       </div>
@@ -266,12 +264,12 @@
 
       <div class="content location">
         <div>
-          <label for="company">Company</label>
+          <label for="company">Company (required)</label>
           <input placeholder="E.g. Philip & Bros. Ltd" type="text" formControlName="company" id="company">
         </div>
 
         <div>
-          <label for="profession">Profession</label>
+          <label for="profession">Profession (required)</label>
           <input placeholder="E.g. Photographer" type="text" formControlName="profession" id="profession">
         </div>
 

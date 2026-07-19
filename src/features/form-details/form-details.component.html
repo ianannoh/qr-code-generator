@@ -1,21 +1,95 @@
-<section class="section-one">
+<section [style.background]="linearGradient" class="section-one">
   <div class="main-content">
-    <img [src]="data.profilePic" alt="profile image">
+    @if (data.profilePic === '') {
+      <h1>{{ getInitials(data.firstName + ' ' + data.lastName) }}</h1>
+    } @else {
+      <img [src]="data.profilePic" alt="profile image">
+    }
+    <h4>{{ capitalizeWords(data.firstName) }} {{ capitalizeWords(data.lastName) }}</h4>
 
-    <h4>{{ data.firstName }} {{ data.lastName }}</h4>
+    <h5>{{ capitalizeWords(data.profession) }}</h5>
 
-    <h5>{{ data.profession }}</h5>
-
-<!--    <div class="contacts">-->
-<!--      <div><a href="" target="_blank" rel="noopener"><img src="/form-details/phone.svg" alt=""></a></div>-->
-<!--      <div><a href="" target="_blank" rel="noopener"><img src="/form-details/mail-open.svg" alt=""></a></div>-->
-<!--      <div><a href="" target="_blank" rel="noopener"><img src="/form-details/location-arrow.svg" alt=""></a></div>-->
-<!--    </div>-->
+    <!--    <div class="contacts">-->
+    <!--      <div><a href="" target="_blank" rel="noopener"><img src="/form-details/phone.svg" alt=""></a></div>-->
+    <!--      <div><a href="" target="_blank" rel="noopener"><img src="/form-details/mail-open.svg" alt=""></a></div>-->
+    <!--      <div><a href="" target="_blank" rel="noopener"><img src="/form-details/location-arrow.svg" alt=""></a></div>-->
+    <!--    </div>-->
   </div>
 </section>
 
-<!--<section class="section-two">-->
-<!--  <h4>{{ data.companySummary }}</h4>-->
-<!--</section>-->
+<section class="main-content section-two">
+  <p>{{ data.companySummary }}</p>
+</section>
+
+<section class="main-content section-three">
+
+  @if (data.phones[0].label !== '' && data.phones[0].data !== '') {
+    @for (p of data.phones; track p.id) {
+      <div class="container">
+        <img src="/forms/contact-phonebook.svg" alt="phonebook icon">
+
+        <div>
+          <small>{{ p.label }}</small>
+          <p>{{ p.data }}</p>
+        </div>
+      </div>
+    }
+  }
+
+  @if (data.emails[0].label !== '' && data.emails[0].data !== '') {
+    @for (p of data.emails; track p.id) {
+      <div class="container">
+        <img src="/form-details/mail.svg" alt="mail icon">
+
+        <div>
+          <small>{{ p.label }}</small>
+          <p>{{ p.data }}</p>
+        </div>
+      </div>
+    }
+  }
+
+  @if (data.websites[0].label !== '' && data.websites[0].data !== '') {
+    @for (p of data.websites; track p.id) {
+      <div class="container">
+        <img src="/form-details/website.svg" alt="website icon">
+
+        <div>
+          <small>{{ p.label }}</small>
+          <a [href]="p.data" target="_blank" rel="noopener"><p>{{ p.data }}</p></a>
+        </div>
+      </div>
+    }
+  }
+
+  <div class="container">
+    <img src="/forms/location.svg" alt="">
+
+    <div>
+      <small>Location</small>
+
+      @if (data.street !== '' && data.streetNumber !== '') {
+        <p>{{ (data.street) + ' ' + (data.streetNumber) + ', ' + data.city + ',' + data.region }}</p>
+      } @else {
+        <p>{{ data.city + ',' + data.region }}</p>
+      }
+    </div>
+  </div>
+
+  <div class="container">
+    <img src="/forms/company.svg" alt="briefcase icon">
+
+    <div>
+      <small>{{ data.company }}</small>
+      <p>{{ data.profession }}</p>
+    </div>
+  </div>
+
+</section>
+
+<div class="main-content btn">
+  <button (click)="copyCurrentUrl()">Copy Link</button>
+</div>
+
 
 
