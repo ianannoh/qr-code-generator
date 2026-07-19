@@ -8,11 +8,6 @@ import {Router} from '@angular/router';
 import {CloudinaryService} from '../../core/cloudinary.service';
 
 
-interface IContact {
-  id: string;
-  label: string;
-  data: string;
-}
 @Component({
   selector: 'app-forms-page',
   imports: [
@@ -37,21 +32,21 @@ export class FormsPageComponent {
   protected qrCodeForm: FormGroup = this.form.group({
     primaryColor: ['#14a0ee', [Validators.required]],
     secondaryColor: ['#0a4363', [Validators.required]],
-    profilePic: ['', Validators.required],
+    profilePic: [''],
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     phones: this.form.array([this.createContact()]),
     emails: this.form.array([this.createContact()]),
     websites: this.form.array([this.createContact()]),
-    street: ['', Validators.required],
-    streetNumber: ['', Validators.required],
-    postalCode: ['', Validators.required],
+    street: [''],
+    streetNumber: [''],
+    postalCode: [''],
     city: ['', Validators.required],
     region: ['', Validators.required],
     country: ['', Validators.required],
     company: ['', Validators.required],
     profession: ['', Validators.required],
-    companySummary: ['', Validators.required]
+    companySummary: ['']
   });
 
   protected imagePreview?: string;
