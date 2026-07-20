@@ -281,14 +281,26 @@
       </div>
     </div>
 
-    <button [disabled]="qrCodeForm.invalid">
-      @if (isSubmitting) {
-        <app-circular-progress-indicator-component></app-circular-progress-indicator-component>
-      } @else {
-        Submit
-      }
-    </button>
+<!--    <button [disabled]="qrCodeForm.invalid">-->
+<!--      @if (isSubmitting) {-->
+<!--        <app-circular-progress-indicator-component></app-circular-progress-indicator-component>-->
+<!--      } @else {-->
+<!--        Submit-->
+<!--      }-->
+<!--    </button>-->
+
+      <button [disabled]="qrCodeForm.invalid">
+        @if (isSubmitting) {
+          <app-circular-progress-indicator-component></app-circular-progress-indicator-component>
+        } @else {
+          Copy Link
+        }
+      </button>
 
   </form>
 
 </section>
+
+
+
+
