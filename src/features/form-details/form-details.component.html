@@ -30,7 +30,7 @@
 
         <div>
           <small>{{ p.label }}</small>
-          <p>{{ p.data }}</p>
+          <a [href]="'tel: ' + p.data">{{ p.data }}</a>
         </div>
       </div>
     }
@@ -43,7 +43,7 @@
 
         <div>
           <small>{{ p.label }}</small>
-          <p>{{ p.data }}</p>
+          <a [href]="'mailto: ' + p.data" target="_blank" rel="noopener">{{ p.data }}</a>
         </div>
       </div>
     }
