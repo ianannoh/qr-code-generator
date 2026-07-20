@@ -96,14 +96,4 @@ export class FormDetailsComponent implements OnInit {
     return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
   }
 
-  protected async copyCurrentUrl(): Promise<void> {
-    const url = `${window.location.origin}${this.router.url}`;
-
-    try {
-      await navigator.clipboard.writeText(url);
-      alert('URL copied');
-    } catch (error) {
-      console.error(error);
-    }
-  }
 }

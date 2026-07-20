@@ -117,7 +117,7 @@ export class FormsPageComponent {
 
   }
 
-  protected submitDetails(form: FormGroup): void {
+  protected async submitDetails(form: FormGroup): Promise<void> {
     this.isSubmitting = true;
 
     if (form.invalid) {
@@ -128,14 +128,30 @@ export class FormsPageComponent {
 
     const encrypted = this.encryption.encrypt(form.value);
 
+    const url = `https://qr-code-gen-44.vercel.app/form-details?data=${encrypted}`;
 
-    this.router.navigate(['/form-details'], {
-      queryParams:{
-        data: encrypted
-      }
-    });
+
+    // this.router.navigate(['/form-details'], {
+    //   queryParams:{
+    //     data: encrypted
+    //   }
+    // });
+
+    await this.copyCurrentUrl(url);
 
     this.isSubmitting = false;
 
   }
+
+  protected async copyCurrentUrl(url: string): Promise<void> {
+    // const url = `${window.location.origin}${this.router.url}`;
+
+    try {
+      await navigator.clipboard.writeText(url);
+      alert('URL copied');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 }
