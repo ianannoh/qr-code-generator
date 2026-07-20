@@ -50,7 +50,7 @@ export class FormDetailsComponent implements OnInit {
         return
       }
 
-      this.data = this.encryption.decrypt<any>(token);
+      this.data = this.encryption.decrypt<any>(decodeURIComponent(token));
       this.linearGradient = `linear-gradient(to bottom, ${this.data.primaryColor}, ${this.data.secondaryColor})`;
     });
 

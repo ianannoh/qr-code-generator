@@ -128,8 +128,7 @@ export class FormsPageComponent {
 
     const encrypted = this.encryption.encrypt(form.value);
 
-    const url = `https://qr-code-gen-44.vercel.app/form-details?data=${encrypted}`;
-
+    const url = `https://qr-code-gen-44.vercel.app/form-details?data=${encodeURIComponent(encrypted)}`;
 
     // this.router.navigate(['/form-details'], {
     //   queryParams:{
