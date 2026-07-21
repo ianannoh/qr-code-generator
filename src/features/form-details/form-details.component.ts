@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EncryptionService} from '../../core/encryption.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -7,6 +7,7 @@ interface IContact {
   label: string;
   data: string;
 }
+
 interface IData {
   primaryColor: string;
   secondaryColor: string;
@@ -26,6 +27,7 @@ interface IData {
   profession: string;
   companySummary: string;
 }
+
 @Component({
   selector: 'app-form-details',
   imports: [],
@@ -37,15 +39,16 @@ export class FormDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private encryption: EncryptionService,
     private router: Router,
-  ){}
+  ) {
+  }
 
-  ngOnInit(){
+  ngOnInit() {
 
     this.route.queryParamMap.subscribe(params => {
 
       const token = params.get('data');
 
-      if(!token) {
+      if (!token) {
         this.router.navigate(['/forms']);
         return
       }
@@ -90,10 +93,41 @@ export class FormDetailsComponent implements OnInit {
       .join(' ');
   }
 
-  protected toSentenceCase(value: string | null | undefined): string {
-    if (!value?.trim()) return 'N/A';
+  protected downloadContact(contact: IData): void {
 
-    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+    const phones = contact.phones
+      .map(phone => `TEL;TYPE=${phone.label.toUpperCase()}:${phone.data}`)
+      .join('\n');
+
+    const emails = contact.emails
+      .map(phone => `TEL;TYPE=${phone.label.toUpperCase()}:${phone.data}`)
+      .join('\n');
+
+
+    const vcard = `
+      BEGIN:VCARD
+      VERSION:3.0
+      FN:${contact.firstName ?? ''} ${contact.lastName ?? ''}
+      ORG:${contact.company ?? ''}
+      TITLE:${contact.profession ?? ''}
+      ${phones}
+      ${emails}
+      END:VCARD
+      `.trim();
+
+    const blob = new Blob([vcard], {
+      type: 'text/vcard;charset=utf-8'
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+
+    a.href = url;
+    a.download = `${contact.firstName}_${contact.lastName}.vcf`;
+
+    a.click();
+
+    URL.revokeObjectURL(url);
   }
-
 }
